@@ -1,11 +1,16 @@
+import { Route, Routes } from "react-router-dom";
 import Capture from "./components/Capture";
-import { ImageProvider } from "./contexts/ImageContext";
+import Home from "./components/Home";
+import { DataProvider } from "./contexts/DataContext";
 
 const App = () => {
   return (
-    <ImageProvider>
-      <Capture />
-    </ImageProvider>
+    <DataProvider>
+      <Routes>
+        <Route path={"/"} element={<Home />} />
+        <Route path={"/capture"} element={<Capture />} />
+      </Routes>
+    </DataProvider>
   );
 };
 
