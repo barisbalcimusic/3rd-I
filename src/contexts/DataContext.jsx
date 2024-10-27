@@ -6,7 +6,6 @@ export const DataProvider = ({ children }) => {
   const [audioURL, setAudioURL] = useState(null);
   const [isWaiting, setIsWaiting] = useState(false);
   const [isCaptured, setIsCaptured] = useState(false);
-  const [isCamStarted, setIsCamStarted] = useState(false);
 
   return (
     <DataContext.Provider
@@ -17,8 +16,6 @@ export const DataProvider = ({ children }) => {
         setIsWaiting,
         isCaptured,
         setIsCaptured,
-        isCamStarted,
-        setIsCamStarted,
       }}>
       {children}
     </DataContext.Provider>

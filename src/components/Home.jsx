@@ -1,84 +1,83 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDataContext } from "../contexts/DataContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import eyeImg from "../assets/eye.png";
 import RingLoader from "react-spinners/RingLoader";
-import cameraStarted from "../data/camera-started.mp3";
-import photoCaptured from "../data/photo-captured.mp3";
 
 const localhost = import.meta.env.VITE_LOCALHOST;
 
 const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-
-  const { audioURL, isWaiting, isCaptured, isCamStarted, setIsCamStarted } =
+  const { audioURL, setAudioURL, isCaptured, setIsCaptured, isWaiting } =
     useDataContext();
-
   const responseAudioRef = useRef(null);
-  const startFeedbackRef = useRef(null);
-  const capturedFeedbackRef = useRef(null);
-
   const navigate = useNavigate();
 
-  // PLAY FEEDBACK AUDIO WHEN CAMERA IS STARTED AND NAVIGATE TO CAPTURE PAGE
-  useEffect(() => {
-    if (isCamStarted) {
-      startFeedbackRef.current.play();
-      setTimeout(() => {
-        navigate("/capture");
-      }, 1500);
+  const handleClick = () => {
+    // PAUSE RESPONSE AUDIO WHEN PLAYING
+    if (isPlaying) {
+      responseAudioRef.current.pause();
+      setIsPlaying(false);
+      setAudioURL(null);
+      return;
     }
-  }, [isCamStarted]);
-
-  // PLAY RESPONSE AUDIO WHEN AUDIOURL IS SET AND SHOW THE AUDIO ICON
-  useEffect(() => {
+    // PLAY RESPONSE AUDIO WHEN AUDIOURL IS SET AND SHOW THE AUDIO ICON
     if (audioURL) {
-      setIsPlaying(true);
+      setIsCaptured(false);
       responseAudioRef.current.play();
+      return;
     }
-  }, [audioURL]);
-
-  // PLAY FEEDBACK AUDIO WHEN IMAGE IS CAPTURED
-  useEffect(() => {
-    if (isCaptured) {
-      // capturedFeedbackRef.current.play();
-    }
-  }, [isCaptured]);
+    navigate("/capture");
+  };
 
   return (
     <div
       id="container"
-      className="w-screen h-screen bg-black flex justify-center items-center"
-      onClick={() => setIsCamStarted(true)}>
+      className="w-screen h-screen bg-black flex justify-center items-center relative">
+      <h1 className="text-[7vw] text-white absolute top-0 z-10 top-[75vh]">
+        {isPlaying
+          ? "Tap to stop the audio"
+          : audioURL
+          ? "Tap to play the answer"
+          : !isWaiting
+          ? "Tap to start"
+          : null}
+      </h1>
+
       <div
         id="screen"
         className={
           "w-[375px] h-[667px] relative bg-gray-800 flex flex-col justify-center items-center"
         }>
         {!isWaiting ? (
-          // SHOW THE BUTTON IF THERE IS NO CURRENT PROCESSING
-          <div className="w-[80%] relative flex flex-col justify-center items-center">
+          // SHOW THE EYE IMAGE AS BUTTON WHEN NOT WAITING
+          <div
+            className="w-[80%] relative flex flex-col justify-center items-center"
+            onClick={handleClick}>
             <img
               className={`rounded-full ${
-                isCamStarted
-                  ? "bg-green-200"
-                  : isPlaying
-                  ? "bg-red-200"
+                isPlaying
+                  ? "bg-green-400"
+                  : isCaptured
+                  ? "bg-yellow-200"
                   : "bg-gray-200"
               }`}
               src={eyeImg}
               alt="eye-image-as-button"
             />
+
             <audio
               ref={responseAudioRef}
               src={`${localhost}/${audioURL}`}
               onPlay={() => setIsPlaying(true)}
-              onEnded={() => setIsPlaying(false)}
+              onEnded={() => {
+                setIsPlaying(false);
+                setAudioURL(null);
+              }}
             />
-            <audio ref={startFeedbackRef} src={cameraStarted} />
-            <audio ref={capturedFeedbackRef} src={photoCaptured} />
+
             {isPlaying && (
               <FontAwesomeIcon
                 className="text-5xl text-white absolute"

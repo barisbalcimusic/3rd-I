@@ -11,8 +11,8 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-        name: "third-eye",
-        short_name: "third-eye",
+        name: "3rd-I",
+        short_name: "3rd-I",
         description: "A simple PWA with Vite and React",
         theme_color: "#ffffff",
         icons: [
