@@ -6,8 +6,6 @@ import { faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import eyeImg from "../assets/eye.png";
 import RingLoader from "react-spinners/RingLoader";
 
-const localhost = import.meta.env.VITE_LOCALHOST;
-
 const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const { audioURL, setAudioURL, isCaptured, setIsCaptured, isWaiting } =
@@ -79,7 +77,7 @@ const Home = () => {
 
             <audio
               ref={responseAudioRef}
-              src={`${localhost}/${audioURL}`}
+              src={audioURL || ""}
               onPlay={() => setIsPlaying(true)}
               onEnded={() => {
                 setIsPlaying(false);

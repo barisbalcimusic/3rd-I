@@ -10,8 +10,19 @@ export const sendImage = async (imgSrc) => {
       body: JSON.stringify({ base64Image: imgSrc }),
     });
 
-    const data = await response.json();
-    return data;
+    if (!response.ok) {
+      throw new Error("Failed to fetch audio from server");
+    }
+
+    // const data = await response.json();
+    // return data;
+
+    const audioBlob = await response.blob();
+    console.log(audioBlob.type);
+
+    const audioUrl = URL.createObjectURL(audioBlob);
+
+    return { audioUrl };
   } catch (error) {
     throw error;
   }
