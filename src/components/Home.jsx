@@ -35,26 +35,16 @@ const Home = () => {
   return (
     <div
       id="container"
-      className="w-screen h-screen bg-black flex justify-center items-center relative">
-      <h1 className="text-[7vw] text-white absolute top-0 z-10 top-[75vh]">
-        {isPlaying
-          ? "Tap to stop the audio"
-          : audioURL
-          ? "Tap to play the answer"
-          : !isWaiting
-          ? "Tap to start"
-          : null}
-      </h1>
-
+      className="w-screen h-screen bg-black flex justify-center items-center">
       <div
         id="screen"
         className={
-          "w-[375px] h-[667px] relative bg-gray-800 flex flex-col justify-center items-center"
+          "w-full h-full tabletAndDesktop:w-[375px] md:h-[667px] relative bg-gray-800 flex flex-col justify-center items-center"
         }>
         {!isWaiting ? (
           // SHOW THE EYE IMAGE AS BUTTON WHEN NOT WAITING
           <div
-            className="w-[80%] relative flex flex-col justify-center items-center"
+            className="w-[80%] relative flex flex-col justify-center items-center hover:cursor-pointer"
             onClick={handleClick}>
             <img
               className={`rounded-full ${
@@ -62,11 +52,30 @@ const Home = () => {
                   ? "bg-green-400"
                   : isCaptured
                   ? "bg-yellow-200"
-                  : "bg-gray-200"
+                  : "bg-gray-200 hover:bg-white"
               }`}
               src={eyeImg}
               alt="eye-image-as-button"
             />
+
+            <div className="h-[15%] absolute bg-[rgba(255,255,255,0.8)] rounded-md px-[5%] text-[150%] flex items-center justify-center pointer-events-none z-20">
+              <p className="text-[6vw] tabletAndDesktop:text-[25px]">
+                {isPlaying
+                  ? "Tap to stop the audio"
+                  : audioURL
+                  ? "Tap to play the answer"
+                  : !isWaiting
+                  ? "Tap to start"
+                  : null}
+              </p>
+            </div>
+
+            {isPlaying && (
+              <FontAwesomeIcon
+                className="text-5xl text-white absolute"
+                icon={faVolumeHigh}
+              />
+            )}
 
             <audio
               ref={responseAudioRef}
@@ -77,13 +86,6 @@ const Home = () => {
                 setAudioURL(null);
               }}
             />
-
-            {isPlaying && (
-              <FontAwesomeIcon
-                className="text-5xl text-white absolute"
-                icon={faVolumeHigh}
-              />
-            )}
           </div>
         ) : (
           // SHOW THE LOADER IF THERE IS A CURRENT PROCESSING

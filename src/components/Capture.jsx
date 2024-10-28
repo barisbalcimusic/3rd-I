@@ -39,7 +39,7 @@ const Capture = () => {
       className="w-screen h-screen bg-black flex justify-center items-center">
       <div
         id="screen"
-        className="w-[375px] h-[667px] relative bg-gray-800  flex flex-col justify-center items-center"
+        className="w-full h-full md:w-[375px] md:h-[667px] relative bg-gray-800  flex flex-col justify-center items-center"
         onClick={handleCapture}>
         <div>
           {!isCamReady && (
@@ -54,6 +54,9 @@ const Capture = () => {
               ref={webcamRef}
               screenshotFormat="image/jpeg"
               onUserMedia={() => setIsCamReady(true)}
+              // videoConstraints={{
+              //   facingMode: { exact: "environment" },
+              // }}
             />
             <p className="absolute bg-[rgba(0,0,0,0.4)] p-3 rounded-md text-gray-200 tracking-wider font-bold">
               Tap the screen to take a picture
