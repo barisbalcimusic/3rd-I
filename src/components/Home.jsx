@@ -89,9 +89,9 @@ const Home = () => {
           </div>
         ) : (
           // SHOW THE LOADER IF THERE IS A CURRENT PROCESSING
-          <div className="w-full p-5 bg-[rgba(255,255,255,0.7)] absolute flex flex-col justify-center items-center">
+          <div className="w-full p-5 bg-gray-200 absolute flex flex-col justify-center items-center">
             <p className="w-full font-bold text-lg text-center text-black">
-              Processing
+              Processing...
             </p>
             <RingLoader size={50} />
           </div>

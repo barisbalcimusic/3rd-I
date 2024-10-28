@@ -24,7 +24,10 @@ const Capture = () => {
       .then((data) => {
         setAudioURL(data.audioUrl);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        setIsCaptured(false);
+        console.error(err);
+      })
       .finally(() => setIsWaiting(false));
 
     // //! ONLY FOR TESTING PURPOSES
@@ -43,7 +46,8 @@ const Capture = () => {
         onClick={handleCapture}>
         <div>
           {!isCamReady && (
-            <div className="w-full h-full absolute top-0 left-0 z-10 flex justify-center items-center bg-gray-800">
+            <div className="w-full h-full absolute top-0 left-0 z-10 flex flex-col justify-center items-center gap-[1vw] bg-gray-800 text-white font-bold">
+              <p>Camera starting...</p>
               <ClipLoader size={50} color="white" />
             </div>
           )}
