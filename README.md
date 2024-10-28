@@ -1,6 +1,6 @@
 # 3rd-I
 
-**3rd-I** is an AI application that captures images from your computer or phone camera, sends them to ChatGPT, and then converts the text response into speech using ElevanLabs. It can be utilized by visually impaired individuals to gain insights into their surroundings, providing valuable assistance in understanding the visual elements around them.
+**3rd-I** is an AI application that captures images from your computer or phone camera, sends them to ChatGPT, and then converts the text response into speech using ElevanLabs. This application can be utilized by visually impaired individuals to gain insights into their surroundings, providing valuable assistance in understanding the visual elements around them.
 
 ## Table of Contents
 
@@ -23,10 +23,17 @@ To get started with the **3rd-I** project, you will need to clone both the front
 
 ## Installation
 
-1. **Clone the backend repository:**
+1. **Clone the backend repository:**  
+   HTTPS:
 
    ```bash
-   git clone <backend-repo-url>
+   git clone https://github.com/barisbalcimusic/3rd-I-backend.git
+   ```
+
+   SSH:
+
+   ```bash
+   git clone git@github.com:barisbalcimusic/3rd-I-backend.git
    ```
 
 2. **Navigate to the backend directory and install dependencies:**
@@ -36,10 +43,17 @@ To get started with the **3rd-I** project, you will need to clone both the front
    npm install
    ```
 
-3. **Clone the frontend repository:**
+3. **Clone the frontend repository:**  
+   HTTPS:
 
    ```bash
-   git clone <frontend-repo-url>
+   git clone https://github.com/barisbalcimusic/3rd-I.git
+   ```
+
+   SSH:
+
+   ```bash
+   git clone git@github.com:barisbalcimusic/3rd-I.git
    ```
 
 4. **Navigate to the frontend directory and install dependencies:**
